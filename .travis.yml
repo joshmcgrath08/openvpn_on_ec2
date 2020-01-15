@@ -1,0 +1,9 @@
+language: minimal
+sudo: required
+addons:
+  apt:
+    packages:
+      - awscli
+      - openvpn
+
+script: ./test_on_travis.sh
