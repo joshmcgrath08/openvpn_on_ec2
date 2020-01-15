@@ -1,12 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Parameters": {
-    "EmailAddress": {
-      "AllowedPattern": ".+@.+\\..+",
-      "Type": "String",
-      "ConstraintDescription": "must be a valid email address.",
-      "Description": "The email address to which your VPN key will be delivered"
-    },
     "InstanceType": {
       "Default": "t3.nano",
       "Type": "String",
@@ -65,13 +59,20 @@
               [
                 "#!/bin/bash\n",
                 "set -eux\n",
+                "apt-get update && apt-get install python-pip --assume-yes\n",
+                "pip install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz\n",
                 "git clone https://github.com/joshmcgrath08/openvpn_on_ec2.git /home/ubuntu/openvpn_on_ec2\n",
                 "cd /home/ubuntu/openvpn_on_ec2\n",
-                "./setup_ec2.sh ", {"Ref": "S3Bucket"}, " ", {"Ref": "SNSTopic"}, " ", {"Ref": "IPAddress"}, " ", { "Ref" : "AWS::Region" },
-                "\n"
+                "./setup_ec2.sh ", {"Ref": "S3Bucket"}, " ", {"Ref": "IPAddress"}, "\n",
+                "/usr/local/bin/cfn-signal --stack ", {"Ref": "AWS::StackName"}," --resource EC2Instance --region ", {"Ref": "AWS::Region"}, " \n"
               ]
             ]
           }
+        }
+      },
+      "CreationPolicy": {
+        "ResourceSignal": {
+          "Timeout": "PT5M"
         }
       }
     },
@@ -87,19 +88,6 @@
             "MarketType": "spot"
           }
         }
-      }
-    },
-    "SNSTopic": {
-      "Type": "AWS::SNS::Topic",
-      "Properties": {
-        "Subscription": [
-          {
-            "Endpoint": {
-              "Ref": "EmailAddress"
-            },
-            "Protocol": "email"
-          }
-        ]
       }
     },
     "S3Bucket": {
@@ -131,14 +119,15 @@
       "Properties": {
         "Policies": [
           {
-            "PolicyName": "OpenVPNClientKeyNotificationPolicy",
+            "PolicyName": "OpenVPNClientKeyS3",
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
                 {
                   "Action": [
                     "s3:PutObject",
-                    "sns:Publish"
+                    "s3:GetObject",
+                    "s3:ListObject"
                   ],
                   "Resource": [
                     {
@@ -151,9 +140,6 @@
                           "/*"
                         ]
                       ]
-                    },
-                    {
-                      "Ref": "SNSTopic"
                     }
                   ],
                   "Effect": "Allow",
@@ -279,6 +265,21 @@
       },
       "eu-west-3": {
         "HVM64": "ami-0b70d1460d5c7a299"
+      }
+    }
+  },
+  "Outputs": {
+    "ClientConfigurationUrl": {
+      "Description": "URL to the VPN client configuration/key file to download",
+      "Value": {
+        "Fn::Join": [
+          "/",
+          [
+            "https://s3.console.aws.amazon.com/s3/object",
+            {"Ref": "S3Bucket"},
+            "client.ovpn"
+          ]
+        ]
       }
     }
   }

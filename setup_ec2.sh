@@ -4,9 +4,9 @@ set -eux
 
 HERE=$(dirname "$0")
 S3_BUCKET_NAME="$1"
-SNS_TOPIC_ARN="$2"
-ELASTIC_IP="$3"
-AWS_REGION="$4"
+ELASTIC_IP="$2"
+# This cannot be changed without also updating ./add_client.sh
+# and cf_template.json
 CLIENT_NAME='client'
 
 apt-get update && apt-get install awscli --assume-yes
@@ -15,9 +15,5 @@ apt-get update && apt-get install awscli --assume-yes
 "${HERE}/add_client.sh" "$CLIENT_NAME" "$ELASTIC_IP"
 
 S3_KEY="${CLIENT_NAME}.ovpn"
-S3_CONSOLE_URL='https://s3.console.aws.amazon.com/s3/object'
 
 aws s3 cp "/etc/openvpn/${CLIENT_NAME}.ovpn" "s3://${S3_BUCKET_NAME}/${S3_KEY}"
-
-aws --region "$AWS_REGION" sns publish --topic-arn "$SNS_TOPIC_ARN" --subject "Your new VPN key" \
-    --message "Download key here (requires logging in to AWS): ${S3_CONSOLE_URL}/${S3_BUCKET_NAME}/${S3_KEY}"
