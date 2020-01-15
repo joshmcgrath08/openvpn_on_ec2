@@ -68,7 +68,8 @@
               ]
             ]
           }
-        }
+        },
+        "Tags": [{"Key": "openvpn_on_ec2", "Value": "true"}]
       },
       "CreationPolicy": {
         "ResourceSignal": {
@@ -101,7 +102,8 @@
               }
             }
           ]
-        }
+        },
+        "Tags": [{"Key": "openvpn_on_ec2", "Value": "true"}]
       }
     },
     "InstanceProfile": {
@@ -164,7 +166,8 @@
               }
             }
           ]
-        }
+        },
+        "Tags": [{"Key": "openvpn_on_ec2", "Value": "true"}]
       }
     },
     "IPAssoc": {
@@ -189,11 +192,15 @@
             "CidrIp": "0.0.0.0/0"
           }
         ],
-        "GroupDescription": "Enable VPN access via UDP port 1194"
+        "GroupDescription": "Enable VPN access via UDP port 1194",
+        "Tags": [{"Key": "openvpn_on_ec2", "Value": "true"}]
       }
     },
     "IPAddress": {
-      "Type": "AWS::EC2::EIP"
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Tags": [{"Key": "openvpn_on_ec2", "Value": "true"}]
+      }
     }
   },
   "Mappings": {
