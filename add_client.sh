@@ -75,4 +75,4 @@ echo '</tls-auth>' >> "$CLIENT_CONFIG"
 
 rm -f /etc/openvpn/easy-rsa/keys/${CLIENT_NAME}*
 
-echo "Generate client certificate: \"$CLIENT_CONFIG\""
+echo "Generated client certificate: \"$CLIENT_CONFIG\""
