@@ -16,6 +16,7 @@ CLIENT_NAME='client'
 # Install AWS CLI and upload client key to S3
 apt-get update && apt-get install awscli --assume-yes
 aws s3 cp "/etc/openvpn/${CLIENT_NAME}.ovpn" "s3://${S3_BUCKET_NAME}/${CLIENT_NAME}.ovpn"
+rm -f "/etc/openvpn/${CLIENT_NAME}.ovpn"
 
 # Configure unattended upgrades for Ubuntu
 apt-get install unattended-upgrades update-notifier-common --assume-yes
