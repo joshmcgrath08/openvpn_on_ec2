@@ -65,7 +65,7 @@
               [
                 "#!/bin/bash\n",
                 "set -eux\n",
-                "git clone https://github.com/joshmcgrath08/openvpn_on_ec2.git /home/ubuntu/openvpn_on_ec2\n"
+                "git clone https://github.com/joshmcgrath08/openvpn_on_ec2.git /home/ubuntu/openvpn_on_ec2\n",
                 "cd /home/ubuntu/openvpn_on_ec2\n",
                 "./setup_ec2.sh ", {"Ref": "S3Bucket"}, " ", {"Ref": "SNSTopic"}, " ", {"Ref": "IPAddress"}, " ", { "Ref" : "AWS::Region" },
                 "\n"
