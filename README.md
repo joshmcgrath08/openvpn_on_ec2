@@ -4,7 +4,7 @@
 
 This repository allows __anyone__ to create and maintain their own private VPN (using the open source version of [OpenVPN](https://en.wikipedia.org/wiki/OpenVPN)) on AWS for about __$1.25/month__ in under __15 minutes__ and a dozen clicks. You do not need any technical background. The instructions below and process are intended for a wide audience.
 
-There are numerous blog posts that describe in great technical detail how to set everything up by hand, but it's a fairly lengthy, error-prone, and technical process. Instead, I (and I expect others) just want a cheap, reliable VPN that works, which is why I've automated the process. While the steps below may appear lengthy at first, that is only for completeness. It does not represent the complexity or time of the process.
+There are numerous blog posts that describe in great technical detail how to set everything up by hand, but it's a fairly lengthy, error-prone, and technical process. Instead, I (and I expect others) just want a cheap, reliable VPN that works, which is why I've automated the process of setting up the VPN that I have been using. While the steps below may appear lengthy at first, that is only for completeness. It does not represent the complexity or time of the process.
 
 ## Setup
 
