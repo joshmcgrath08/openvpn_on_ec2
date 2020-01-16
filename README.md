@@ -26,7 +26,7 @@ Instructions are provided both in the form of screenshots and more detailed text
 
 <thead>
 <tr>
-<th><img src="https://www.dl.dropboxusercontent.com/s/hp52b6pn2dvzor3/openvpn_on_ec2_screenshot_1.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/n6iuxqck8dlguvn/openvpn_on_ec2_screenshot_1.jpg?dl=0" width="250"/></th>
 <th><img src="https://www.dl.dropboxusercontent.com/s/sl2oezcs2t01lxk/openvpn_on_ec2_screenshot_2.jpg?dl=0" width="250"/></th>
 <th><img src="https://www.dl.dropboxusercontent.com/s/xoawwrud7covsqu/openvpn_on_ec2_screenshot_3.jpg?dl=0" width="250"/></th>
 </tr>
