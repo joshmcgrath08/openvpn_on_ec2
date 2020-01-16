@@ -1,18 +1,90 @@
 # Summary
 
-[![Build Status](https://travis-ci.org/joshmcgrath08/openvpn_on_ec2.svg?branch=master)](https://travis-ci.org/joshmcgrath08/openvpn_on_ec2)
+This repository allows __anyone__ to create and maintain their own VPN (using the open source version of [OpenVPN](https://en.wikipedia.org/wiki/OpenVPN)) on AWS in under __15 minutes__ and a dozen clicks for as little as __$2/month__. No technical background is required or expected.
 
-This repository allows __anyone__ to create and maintain their own private VPN (using the open source version of [OpenVPN](https://en.wikipedia.org/wiki/OpenVPN)) on AWS at cost (starting around __$2/month__) in under __15 minutes__ and a dozen clicks. You do not need any technical background. The instructions below and process are intended for a wide audience.
+For more about what a VPN is and why you might want to use one, [this post on Hackernoon](https://hackernoon.com/why-you-should-be-using-a-vpn-in-2019-63ui3y83) is pretty good.
 
-There are numerous blog posts that describe in great technical detail how to set everything up by hand, but it's a fairly lengthy, error-prone, and technical process. Instead, I (and I expect others) just want a cheap, reliable VPN that works, which is why I've automated the process of setting up the VPN that I have been using. While the steps below may appear lengthy at first, that is only for completeness. It does not represent the complexity or time of the process.
+For more information about cost and technical details, refer to the [details section](#details).
 
-For more about what a VPN is and why you might want to use one, I recommend [this post on Hackernoon](https://hackernoon.com/why-you-should-be-using-a-vpn-in-2019-63ui3y83).
+[![Launch Now](https://www.dl.dropboxusercontent.com/s/ue3ex9c9w7fnkqf/openvpn_on_ec2_launch_icon.png?dl=0)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=PersonalVPN&templateURL=https://s3.amazonaws.com/openvpn-on-ec2-cfn-templates-public/cf_template.json)
 
 ## Setup
 
-The following steps should take about 10-15 minutes to execute
+Instructions are provided both in the form of screenshots and more detailed text.
 
-1. Click [this link](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=PersonalVPN&templateURL=https://s3.amazonaws.com/openvpn-on-ec2-cfn-templates-public/cf_template.json)
+### Visual Instructions
+
+<table>
+
+<thead>
+<tr>
+<th>1: Click "Launch Now"</th>
+<th>2: Log in (create account if needed)</th>
+<th>3: Click "Next"</th>
+</tr>
+</thead>
+
+<thead>
+<tr>
+<th><img src="https://www.dl.dropboxusercontent.com/s/hp52b6pn2dvzor3/openvpn_on_ec2_screenshot_1.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/sl2oezcs2t01lxk/openvpn_on_ec2_screenshot_2.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/xoawwrud7covsqu/openvpn_on_ec2_screenshot_3.jpg?dl=0" width="250"/></th>
+</tr>
+</thead>
+
+<thead>
+<tr>
+<th>4: Click "Next" two more times</th>
+<th>5: Acknolwedge and click<br/>"Create Stack"</th>
+<th>6: Click "Stack Info"</th>
+</tr>
+</thead>
+
+<thead>
+<tr>
+<th><img src="https://www.dl.dropboxusercontent.com/s/2ivq4ady6rhhgtr/openvpn_on_ec2_screenshot_4.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/uytmpd4vpfdf8lt/openvpn_on_ec2_screenshot_5.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/7351muq54liwc51/openvpn_on_ec2_screenshot_6.jpg?dl=0" width="250"/></th>
+</tr>
+</thead>
+
+<thead>
+<tr>
+<th>7: Refresh until Status is<br/>"CREATE_COMPLETE"<br/>(about 5-10 minutes)</th>
+<th>8: Click "Outputs"</th>
+<th>9: Click the<br/>"ClientConfigurationUrl" link</th>
+</tr>
+</thead>
+
+<thead>
+<tr>
+<th><img src="https://www.dl.dropboxusercontent.com/s/h1g4cahg9mr7b3p/openvpn_on_ec2_screenshot_7.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/2n4a0qxbsiykkuc/openvpn_on_ec2_screenshot_8.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/6nh6b9skruhkfjb/openvpn_on_ec2_screenshot_9.jpg?dl=0" width="250"/></th>
+</tr>
+</thead>
+
+<thead>
+<tr>
+<th>10: Click "Download" and<br/>save the client key</th>
+<th>11: Import the key into<br/>OpenVPN Connect</th>
+<th>12: You're connected</th>
+</tr>
+</thead>
+
+<thead>
+<tr>
+<th><img src="https://www.dl.dropboxusercontent.com/s/jfn4fl3pq9dn2oq/openvpn_on_ec2_screenshot_10.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/rkm29npry6vj2mz/openvpn_on_ec2_screenshot_11.jpg?dl=0" width="250"/></th>
+<th><img src="https://www.dl.dropboxusercontent.com/s/05gnges7p4loeou/openvpn_on_ec2_screenshot_12.jpg?dl=0" width="250"/></th>
+</tr>
+</thead>
+
+</table>
+
+### Text Instructions
+
+1. Click the "Launch Now" icon above
 1. Sign in to AWS
     1. If you already have an AWS account, sign in
     1. If you do not already have an AWS account
@@ -29,15 +101,15 @@ The following steps should take about 10-15 minutes to execute
         1. Click the gold "Sign in to the Console" button
         1. Sign in using the email/password you used above
 1. Create your VPN via Cloudformation
-    1. If you don't see "Create stack" at the top of the screen after logging in, click [this link](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=PersonalVPN&templateURL=https://s3.amazonaws.com/openvpn-on-ec2-cfn-templates-public/cf_template.json) again
+    1. If you don't see "Create stack" at the top of the screen after logging in, click the "Launch Now" icon again
     1. On the "Create stack" screen, click the orange "Next" button in the bottom right
     1. On the "Specify stack details" screen, again click the orange "Next" button
     1. On the "Configure stack options" screen, again click the orange "Next" button
-    1. On the "Review" screen, scroll down to the bottom and check the box in the blue box with the title "The following resource(s) require capabilities: [AWS::IAM::Role]". This indicates that in the process of creating the VPN, a new role (which grants permissions) will be created in your account and provided to the VPN to allow it to function
+    1. On the "Review" screen, scroll down to the bottom and check the box in the blue box with the title "The following resource(s) require capabilities: [AWS::IAM::Role]". This indicates that in the process of creating the VPN, a new role (which grants permissions) will be created in your account and provided to the VPN
     1. Click the orange "Create stack" button
     1. Select the "Stack info" tab and observe the "Status" field says "CREATE_IN_PROGRESS"
     1. When the "Status" field changes to "CREATE_COMPLETE" (may require refreshing), click the "Outputs" tab. This usually takes 5-10 minutes
-       1. Click the link in the "Value" field in the "Output" tab. This will open S3, which is storing the key you'll use to access your VPN
+    1. Click the link in the "Value" field in the "Output" tab. This will open S3, which is storing the key you'll use to access your VPN
     1. Click the "Download" button, and save the client key to your computer. Keep in mind that this file behaves like a password for your VPN, so keep it safe
 4. Download and install the appropriate OpenVPN Connect client
     - [Windows](https://openvpn.net/client-connect-vpn-for-windows/)
@@ -45,10 +117,9 @@ The following steps should take about 10-15 minutes to execute
     - [iOS](https://apps.apple.com/us/app/openvpn-connect/id590379981)
     - [Android](https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=en_US)
 5. Connect your client to the VPN server
-    - Open the OpenVPN Connect client
-    - Select the "File" tab
-    - Import the client key you downloaded earlier
-    - With a few more clicks, you should be connected
+    1. Open the OpenVPN Connect client
+    1. Import the client key you downloaded earlier
+    1. With a few more clicks, you should be connected
 
 # Details
 
@@ -87,7 +158,11 @@ By default, spot instances are used as they are significantly cheaper. On the ot
 
 ## Testing
 
-While provisioning, connecting to, and making requests through the VPN has been tested, including as part of the Travis CI tests, additional security testing should be performed.
+Travis runs an end-to-end test to ensure VPNs can be set up and used to access the internet
+
+[![Build Status](https://travis-ci.org/joshmcgrath08/openvpn_on_ec2.svg?branch=master)](https://travis-ci.org/joshmcgrath08/openvpn_on_ec2)
+
+Additional security and client testing should be done.
 
 ## Cost
 
