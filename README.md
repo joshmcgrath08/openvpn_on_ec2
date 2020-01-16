@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/joshmcgrath08/openvpn_on_ec2.svg?branch=master)](https://travis-ci.org/joshmcgrath08/openvpn_on_ec2)
 
-This repository allows __anyone__ to create and maintain their own private VPN (using the open source version of [OpenVPN](https://en.wikipedia.org/wiki/OpenVPN)) on AWS for about __$1.25/month__ in under __15 minutes__ and a dozen clicks. You do not need any technical background. The instructions below and process are intended for a wide audience.
+This repository allows __anyone__ to create and maintain their own private VPN (using the open source version of [OpenVPN](https://en.wikipedia.org/wiki/OpenVPN)) on AWS at cost (starting around __$2/month__) in under __15 minutes__ and a dozen clicks. You do not need any technical background. The instructions below and process are intended for a wide audience.
 
 There are numerous blog posts that describe in great technical detail how to set everything up by hand, but it's a fairly lengthy, error-prone, and technical process. Instead, I (and I expect others) just want a cheap, reliable VPN that works, which is why I've automated the process of setting up the VPN that I have been using. While the steps below may appear lengthy at first, that is only for completeness. It does not represent the complexity or time of the process.
 
@@ -50,7 +50,7 @@ The following steps should take about 10-15 minutes to execute
     - Import the client key you downloaded earlier
     - With a few more clicks, you should be connected
 
-# Technical details
+# Details
 
 ## Cloudformation
 
@@ -83,8 +83,12 @@ echo "Unattended-Upgrade::Automatic-Reboot \"true\";" >> "$AUC"
 
 ## EC2 Instances
 
-By default, spot instances are used as they are significantly cheaper. On the other hand, on-demand instances are eligible for the free tier. It would not be difficult to change the Cloudformation template to allow for on-demand instances as well.
+By default, spot instances are used as they are significantly cheaper. On the other hand, on-demand instances are eligible for the free tier and have better availability guarantees. It would not be difficult to change the Cloudformation template to allow for on-demand instances as well.
 
 ## Testing
 
 While provisioning, connecting to, and making requests through the VPN has been tested, including as part of the Travis CI tests, additional security testing should be performed.
+
+## Cost
+
+In addition to the cost of the EC2 spot instance itself (based on market price), there are costs for storage (about $0.80/month), and network (about $0.10/GB/month).
