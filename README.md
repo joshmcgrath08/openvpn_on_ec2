@@ -6,6 +6,8 @@ This repository allows __anyone__ to create and maintain their own private VPN (
 
 There are numerous blog posts that describe in great technical detail how to set everything up by hand, but it's a fairly lengthy, error-prone, and technical process. Instead, I (and I expect others) just want a cheap, reliable VPN that works, which is why I've automated the process of setting up the VPN that I have been using. While the steps below may appear lengthy at first, that is only for completeness. It does not represent the complexity or time of the process.
 
+For more about what a VPN is and why you might want to use one, I recommend [this post on Hackernoon](https://hackernoon.com/why-you-should-be-using-a-vpn-in-2019-63ui3y83).
+
 ## Setup
 
 The following steps should take about 10-15 minutes to execute
